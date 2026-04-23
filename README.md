@@ -60,10 +60,6 @@ appealing on Ethereum but awkward to compose cleanly with existing tooling.
 - `artifact/`
   Core research artifact: contracts, circuits, crypto helpers, scripts, and
   experiments.
-- `application/`
-  Supporting material for the Ethereum Foundation PhD Fellowship application,
-  including the proposal PDF used to frame the artifact's broader governance
-  relevance.
 
 ## Quick start
 
@@ -109,13 +105,6 @@ encrypted aggregation settings where a public system must verify that an
 encrypted update is the one authorized by a proof. That is why the surrounding
 research also tracks adjacent domains such as verifiable aggregation workflows
 in federated learning.
-
-## Fellowship application
-
-The `application/` folder contains the proposal material prepared for the
-Ethereum Foundation PhD Fellowship 2026. It is included as supporting context
-for why this artifact matters to Ethereum governance research and how the next
-stage of the work would strengthen the current prototype.
 
 ## License
 
