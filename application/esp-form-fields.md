@@ -6,17 +6,19 @@ Verifiable Private Governance on Ethereum
 
 ## Project Summary
 
-This project studies a reusable mechanism for Ethereum that closes the
-acceptance gap between an encrypted decision and the proof that authorizes it,
-even when the encryption and proof systems are cryptographically incompatible.
-The flagship case is private collective decision-making using
-threshold-Paillier for efficient encrypted aggregation and Groth16 for cheap
-on-chain verification on Ethereum. The repository already contains a public
-artifact with a real Groth16 verifier, a reproduced attack on the naive
-composition, tests, and benchmarks; the proposed research strengthens
-aggregate-integrity, formalizes what is immutable versus adjustable or
-discretionary in this governance design, and produces an open-access academic
-output. Public work: https://github.com/VincenzoImp/paillier-groth16-binding
+This project studies a reusable mechanism for Ethereum that lets an institution
+verify on-chain that an encrypted collective decision is exactly the one
+authorized by its corresponding proof, even when the underlying encryption and
+proof systems are incompatible. The flagship case is private voting and
+committee decisions, using threshold-Paillier for efficient encrypted
+aggregation and Groth16 for cheap on-chain verification. The public repository
+already contains a working research artifact with a tested acceptance-side
+binding mechanism, a real Groth16 verifier, a reproduced attack on the naive
+composition, tests, and benchmarks. The proposed research extends that base by
+strengthening guarantees around the final aggregate, clarifying which rules are
+immutable, adjustable, or discretionary in this governance design, and
+producing an open-access paper and public artifact for Ethereum governance
+builders. Public work: https://github.com/VincenzoImp/paillier-groth16-binding
 
 ## Project Repo Link
 

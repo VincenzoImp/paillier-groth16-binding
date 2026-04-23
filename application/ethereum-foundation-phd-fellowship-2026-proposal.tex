@@ -54,10 +54,13 @@ proof that authorizes it, even when the encryption and proof systems are
 cryptographically incompatible. The flagship case is private voting and
 committee decision-making using threshold-Paillier for efficient encrypted
 aggregation and Groth16 for proof verification that Ethereum can perform
-cheaply on-chain. The fellowship would fund a stronger aggregate-integrity
-mechanism built on top of that acceptance-layer base, a governance-level model
-of what is immutable, adjustable, and discretionary, and a public artifact plus
-open-access paper for Ethereum governance builders.
+cheaply on-chain. The public artifact already implements and tests the
+acceptance-side binding mechanism, including a reproduced ciphertext-substitution
+attack against the naive composition and its rejection under the bound design.
+The fellowship would fund a stronger aggregate-integrity mechanism built on top
+of that acceptance-layer base, a governance-level model of what is immutable,
+adjustable, and discretionary, and a public artifact plus open-access paper for
+Ethereum governance builders.
 
 
 %% ===================================================================
@@ -189,10 +192,10 @@ three ways:
 This proposal does not start from a blank slate. I already have a public
 research artifact centered on the acceptance side of the problem, including the
 acceptance gap between encrypted decisions and their on-chain authorization
-proof: a Circom circuit, a Solidity contract using a real Groth16 verifier on
-EVM, a reproduced attack on the naive composition, passing tests, and measured
-benchmarks at realistic parameters. I also have a paper draft and a detailed
-map of claims, evidence, and open gaps.
+proof: a Circom circuit, a tested acceptance-side binding mechanism, a Solidity
+contract using a real Groth16 verifier on EVM, a reproduced attack on the naive
+composition, passing tests, and measured benchmarks at realistic parameters. I
+also have a paper draft and a detailed map of claims, evidence, and open gaps.
 
 This existing base reduces execution risk, but the work is not already
 complete. The current artifact is strongest on acceptance-side integrity and on
