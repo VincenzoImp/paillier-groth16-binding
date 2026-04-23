@@ -1,0 +1,67 @@
+{
+  "benchmark": "design-space-comparison",
+  "generatedAt": "2026-04-20T14:32:14.292Z",
+  "methodology": {
+    "baselineCircuit": "EligibilityOnly.circom",
+    "note": "Constraint counts are exact R1CS counts compiled with circom. Verifier linearization gas is analytical: 6150 gas per public input (ECMUL + ECADD under EIP-196). Prover-time estimates scale the measured current proof median by total constraint ratio."
+  },
+  "baseline": {
+    "circuit": "EligibilityOnly",
+    "nonLinearConstraints": 2910,
+    "wires": 2925
+  },
+  "rows": [
+    {
+      "name": "current full-limb Poseidon bridge",
+      "bridgeConstraints": 13584,
+      "totalConstraints": 16494,
+      "bridgeWires": 13585,
+      "publicInputs": 36,
+      "calldataBytes": 1152,
+      "verifierLinearizationGas": 221400,
+      "coverageBits": 6144,
+      "securityStatus": "Injective full-coverage decomposition over the canonical 6144-bit ciphertext space",
+      "caveat": "High public-input count and calldata footprint are the price of board-visible injectivity",
+      "proverEstimateMs": 611.65
+    },
+    {
+      "name": "SHA-256-in-circuit bridge",
+      "bridgeConstraints": 392889,
+      "totalConstraints": 395799,
+      "bridgeWires": 394978,
+      "publicInputs": 5,
+      "calldataBytes": 160,
+      "verifierLinearizationGas": 30750,
+      "coverageBits": 6144,
+      "securityStatus": "Full ciphertext coverage, but security depends on SHA-256 collision resistance and digest packing",
+      "caveat": "Much lower public-input cost, but the circuit itself becomes very large",
+      "proverEstimateMs": 14677.486
+    },
+    {
+      "name": "Pedersen chunk-commit proxy (24 x 256-bit chunks)",
+      "bridgeConstraints": 10848,
+      "totalConstraints": 13758,
+      "bridgeWires": 17016,
+      "publicInputs": 51,
+      "calldataBytes": 1632,
+      "verifierLinearizationGas": 313650,
+      "coverageBits": 6144,
+      "securityStatus": "Full coverage only after chunking the ciphertext into 24 Pedersen commitments",
+      "caveat": "This is the closest measurable same-group proxy, not a drop-in bulletin-board replacement: the board would still need to carry and reconcile 48 public commitment coordinates",
+      "proverEstimateMs": 510.19
+    },
+    {
+      "name": "partial-limb binding (4 limbs)",
+      "bridgeConstraints": 1488,
+      "totalConstraints": 4398,
+      "bridgeWires": 1489,
+      "publicInputs": 8,
+      "calldataBytes": 256,
+      "verifierLinearizationGas": 49200,
+      "coverageBits": 768,
+      "securityStatus": "Structurally non-injective on the canonical ciphertext space",
+      "caveat": "Cheaper because it leaves 5376 bits unauthenticated; the ablation shows concrete prefix ambiguity",
+      "proverEstimateMs": 163.092
+    }
+  ]
+}

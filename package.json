@@ -1,0 +1,33 @@
+{
+  "name": "cross-group-binding",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public research artifact for mixed-domain binding between Paillier ciphertexts and Groth16 proofs on Ethereum",
+  "workspaces": [
+    "artifact/contracts",
+    "artifact/crypto"
+  ],
+  "scripts": {
+    "verify": "yarn contracts:test && yarn crypto:test",
+    "contracts:test": "yarn workspace @cgbl/contracts test",
+    "contracts:compile": "yarn workspace @cgbl/contracts compile",
+    "crypto:test": "yarn workspace @cgbl/crypto test",
+    "crypto:build": "yarn workspace @cgbl/crypto build",
+    "circuit:compile": "cd artifact/circuits && circom CrossGroupBallot.circom --r1cs --wasm --sym -o build/",
+    "quick:attack": "yarn workspace @cgbl/contracts test --grep \"Attack Demo\"",
+    "attack:demo": "yarn crypto:build && node artifact/scripts/attack-replay.mjs",
+    "transcript:demo": "node artifact/scripts/transcript-reconstruction.mjs",
+    "binding:overhead": "yarn crypto:build && node artifact/experiments/binding-overhead.mjs",
+    "crypto:bench": "yarn crypto:build && node artifact/experiments/crypto-benchmark.mjs",
+    "bench:production": "yarn crypto:build && node artifact/experiments/production-benchmarks.mjs",
+    "gas:bench": "yarn crypto:build && yarn workspace @cgbl/contracts gas:bench",
+    "design:space": "node artifact/experiments/design-space-comparison.mjs"
+  },
+  "devDependencies": {
+    "ethers": "6.13.7",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3"
+  },
+  "packageManager": "yarn@1.22.22"
+}

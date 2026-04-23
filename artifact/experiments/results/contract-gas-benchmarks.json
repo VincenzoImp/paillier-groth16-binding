@@ -1,0 +1,43 @@
+{
+  "benchmark": "contract-gas-benchmarks",
+  "generatedAt": "2026-04-20T14:29:49.159Z",
+  "fixturePath": "artifact/experiments/results/production-fixture-3072.json",
+  "parameters": {
+    "modulusBits": 3072,
+    "canonicalCiphertextBytes": 768,
+    "threshold": 2
+  },
+  "payloadDensity": {
+    "real3072Ciphertext": {
+      "nonZeroBytes": 764,
+      "totalBytes": 768,
+      "ratio": 0.9948
+    },
+    "denseSyntheticCiphertext": {
+      "nonZeroBytes": 768,
+      "totalBytes": 768,
+      "ratio": 1
+    },
+    "realShare": {
+      "nonZeroBytes": 763,
+      "totalBytes": 768,
+      "ratio": 0.9935
+    },
+    "aggregate": {
+      "nonZeroBytes": 766,
+      "totalBytes": 768,
+      "ratio": 0.9974
+    }
+  },
+  "gas": {
+    "initElection": 484964,
+    "castBallotProductionReal3072": 1345807,
+    "castBallotProductionReal3072SecondBallot": 1328755,
+    "castBallotDenseSynthetic": 1345867,
+    "closeVoting": 32060,
+    "publishAggregateReal3072": 666759,
+    "submitShareReal3072": 692613,
+    "submitShareReal3072SecondShare": 675537,
+    "finalize": 127852
+  }
+}

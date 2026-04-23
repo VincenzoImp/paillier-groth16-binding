@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+cache/
+coverage/
+artifacts/
+typechain-types/
+*.log
+*.tsbuildinfo
+artifact/contracts/cache/
+artifact/contracts/artifacts/
+artifact/contracts/typechain-types/
+artifact/crypto/dist/
+artifact/circuits/build/
