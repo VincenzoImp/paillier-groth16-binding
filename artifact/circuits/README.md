@@ -45,7 +45,7 @@ curl -sL "https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_15.p
 # 3. Groth16 setup + verifier export
 cd build
 npx snarkjs groth16 setup CrossGroupBallot.r1cs pot15.ptau circuit_0000.zkey
-npx snarkjs zkey contribute circuit_0000.zkey circuit_final.zkey --name="lab" -e="cgbl"
+npx snarkjs zkey contribute circuit_0000.zkey circuit_final.zkey --name="contributor" -e="paillier-groth16-binding"
 npx snarkjs zkey export verificationkey circuit_final.zkey verification_key.json
 npx snarkjs zkey export solidityverifier circuit_final.zkey Groth16Verifier.sol
 

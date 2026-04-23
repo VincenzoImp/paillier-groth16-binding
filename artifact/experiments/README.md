@@ -1,7 +1,7 @@
 # Experiments
 
-This directory contains the measurement and derivation scripts that back the
-paper's evaluation claims.
+This directory contains the measurement and derivation scripts that support the
+artifact's quantitative evaluation.
 
 ## Primary scripts
 

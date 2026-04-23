@@ -1,4 +1,4 @@
-# Cross-Group Binding
+# Paillier-Groth16 Binding
 
 Public artifact repository for research on a missing interoperability layer
 between:
@@ -13,8 +13,8 @@ the bulletin board is the same object authorized by a succinct proof.
 
 ## Why this repository exists
 
-This repository packages the artifact that emerged from the internal
-`cross-group-binding-lab` research workspace into a cleaner public form.
+This repository packages the current research artifact into a public,
+self-contained form.
 
 The central thesis is:
 
@@ -24,9 +24,10 @@ The central thesis is:
 
 In this project:
 
-- `Paillier` is the attractive choice for encrypted aggregation and tallying;
-- `Groth16` is the attractive choice for on-chain proof verification because of
-  Ethereum's BN254 precompiles; and
+- `Paillier` is useful in workflows that need additive aggregation over a large
+  integer domain and threshold decryption; 
+- `Groth16` is practical for on-chain proof verification because of Ethereum's
+  BN254 precompiles; and
 - their composition is not naturally same-domain, so the interface must be made
   explicit.
 
@@ -51,8 +52,8 @@ The current artifact does **not** claim:
 - on-chain committee governance or operational orchestration;
 - a real-world vulnerability in a major deployed Ethereum governance product.
 
-The point is different: to document and validate a desirable but awkward design
-point that Ethereum governance tooling does not package cleanly today.
+The point is different: to document and evaluate a design point that is
+appealing on Ethereum but awkward to compose cleanly with existing tooling.
 
 ## Repository layout
 
@@ -111,10 +112,10 @@ in federated learning.
 
 ## Fellowship application
 
-The `application/` folder contains the PDF proposal prepared for the Ethereum
-Foundation PhD Fellowship 2026. It is included as supporting context for why
-this artifact matters to Ethereum governance research and how the next stage of
-the work would strengthen the current prototype.
+The `application/` folder contains the proposal material prepared for the
+Ethereum Foundation PhD Fellowship 2026. It is included as supporting context
+for why this artifact matters to Ethereum governance research and how the next
+stage of the work would strengthen the current prototype.
 
 ## License
 

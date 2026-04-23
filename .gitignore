@@ -6,6 +6,8 @@ coverage/
 artifacts/
 typechain-types/
 *.log
+*.aux
+*.out
 *.tsbuildinfo
 artifact/contracts/cache/
 artifact/contracts/artifacts/

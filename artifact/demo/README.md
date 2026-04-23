@@ -1,6 +1,6 @@
 # Demo
 
-This lab intentionally avoids a wide application UI.
+This repository intentionally avoids a wide application UI.
 
 The demo surface should stay thin and research-oriented:
 

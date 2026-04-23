@@ -1,7 +1,7 @@
 # Application Materials
 
 This directory contains public-facing application material associated with the
-current stage of the `Cross-Group Binding` research effort.
+current stage of the `paillier-groth16-binding` research effort.
 
 Files currently included:
 

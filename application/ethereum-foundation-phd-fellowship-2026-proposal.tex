@@ -27,13 +27,13 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \title{\vspace{-1.5cm}\textbf{Verifiable Private Governance on Ethereum}\\[6pt]
-\large A Governance Primitive for Encrypted Decisions and On-Chain Proofs\\[10pt]
+\large Closing the Acceptance Gap for Private Collective Decisions\\[10pt]
 \normalsize Ethereum Foundation PhD Fellowship 2026 --- Proposal\\
 \normalsize RFP: Programmable Institutional Design and Verifiable Governance}
 
 \author{Vincenzo Imperati\\
 \small PhD Student in Computer Science, Sapienza University of Rome\\
-\small \href{mailto:vincenzo@imperati.dev}{vincenzo@imperati.dev}
+\small \href{mailto:imperati@di.uniroma1.it}{imperati@di.uniroma1.it}
 \; $\cdot$ \;
 \href{https://vincenzo.imperati.dev}{vincenzo.imperati.dev}}
 \date{}
@@ -46,26 +46,18 @@
 \section{Project Abstract}
 %% ===================================================================
 
-Ethereum already supports highly programmable governance, but private collective
-decisions remain difficult to implement without introducing privileged workflow
-actors or sacrificing verifiability and efficiency. This project studies that
-gap through a concrete governance primitive: securely binding an encrypted
-decision to the succinct proof that authorizes it when the two live in
-incompatible algebraic domains. The flagship case is threshold-Paillier
-encryption for private tallying combined with Groth16 proofs for cheap EVM
-verification over BN254 precompiles.
-
-The project starts from a working artifact with a real Groth16 verifier on EVM,
-a reproduced attack on the naive composition, and benchmarked implementations.
-The fellowship would fund the formalization of this primitive as an object of
-programmable institutional design, the strengthening of tally-side integrity
-beyond the current transcript-auditable path, and the release of a public
-open-source artifact and academic paper for the Ethereum ecosystem. While
-private voting is the flagship case, the same research direction is relevant
-more broadly to encrypted aggregation workflows in which a public system must
-verify that an encrypted update or contribution is the one authorized by a
-succinct proof, including emerging work on verifiable aggregation and input
-verification in federated learning \cite{veriflfix2022,lzksa2025}.
+Ethereum can encode governance rules precisely, but private collective
+decisions still often rely on trusted coordinators, tally operators, or
+workflow controls that are hard to audit. This project studies a reusable
+mechanism for closing the acceptance gap between an encrypted decision and the
+proof that authorizes it, even when the encryption and proof systems are
+cryptographically incompatible. The flagship case is private voting and
+committee decision-making using threshold-Paillier for efficient encrypted
+aggregation and Groth16 for proof verification that Ethereum can perform
+cheaply on-chain. The fellowship would fund a stronger aggregate-integrity
+mechanism built on top of that acceptance-layer base, a governance-level model
+of what is immutable, adjustable, and discretionary, and a public artifact plus
+open-access paper for Ethereum governance builders.
 
 
 %% ===================================================================
@@ -73,10 +65,11 @@ verification in federated learning \cite{veriflfix2022,lzksa2025}.
 %% ===================================================================
 
 \begin{enumerate}[leftmargin=*]
-\item \textbf{Formalize a governance primitive for private collective
+\item \textbf{Formalize a reusable mechanism for private collective
 decisions.} Define clearly which institutional constraints become feasible
 through programmability and verifiability in this setting, and map the design
-into immutable, adjustable, and discretionary components.
+into immutable, adjustable, and discretionary components, including who has
+authority to set or change each part of the workflow.
 
 \item \textbf{Strengthen tally-side integrity in a realistic way.} Starting from
 the current transcript-auditable construction, design, implement, and formally
@@ -89,16 +82,17 @@ for Ethereum builders, including the core circuit and contract logic,
 reproducible benchmarks, documentation, and a small reusable developer surface.
 
 \item \textbf{Publish an open-access academic output.} Prepare and submit the
-research to a strong security venue, with an archived artifact and permissive
-open-source licensing.
+research to a named security venue target, with a public preprint path,
+archived artifact, and permissive open-source licensing.
 \end{enumerate}
 
 \textbf{Success metrics.}
 \begin{itemize}[leftmargin=*,nosep]
-\item One submission-ready academic paper delivered during the fellowship period
-\item One public artifact repository with documentation and reproducible results
-\item One implemented and evaluated tally-integrity upgrade beyond the current
-      transcript-auditable baseline
+\item One paper submitted during the fellowship period, with a documented
+      submission record and archived public artifact
+\item One maintained public artifact release with documentation and reproducible results
+\item One implemented and evaluated aggregate-integrity mechanism stronger than
+      the current transcript-auditable baseline
 \item One external round of feedback from Ethereum governance practitioners or
       adjacent projects
 \end{itemize}
@@ -108,39 +102,63 @@ open-source licensing.
 \section{Outcomes}
 %% ===================================================================
 
-\subsection{A new design point for Ethereum governance}
+\subsection{From trusted procedure to enforceable rule}
 
 The practical contribution is not ``blockchain voting'' in the abstract. It is
-a governance primitive for higher-assurance private collective decisions on
-Ethereum: elections, council approvals, committee decisions, sealed governance
-proposals, and similar workflows where participants need confidentiality
-without giving up public verifiability. The project targets institutional and
-organizational settings, not national political elections \cite{park2021}.
+a reusable mechanism for higher-assurance private collective decisions on
+Ethereum: committee votes, council approvals, board or membership decisions,
+sealed governance proposals, and similar workflows where participants need
+confidentiality without giving up public verifiability. The project targets
+institutional and organizational settings, not national political elections
+\cite{park2021}.
 
-The main institutional outcome is that one critical governance constraint can be
-moved from privileged trust into verifiable code: the decision recorded on-chain
-must be the same decision authorized by the proof. In the current design, that
-constraint becomes immutable at acceptance time rather than being left to an
-operator or coordinator to enforce correctly off-chain.
+In a traditional confidential decision process, several roles are usually
+separated: an administrator manages eligibility, trusted staff or scrutineers
+handle ballot custody, and tally trustees or operators ensure that the object
+counted is the same one originally cast. In many current Ethereum privacy
+architectures, the same acceptance-side guarantee still falls to a coordinator
+or application-specific off-chain procedure. The main institutional outcome of
+this project is to move one specific rule from privileged trust into verifiable
+code: once an encrypted decision is accepted, the object recorded on-chain must
+be the same object authorized by the proof.
 
-\subsection{Auditable and programmable rule enforcement}
+\subsection{A clearer allocation of authority}
 
 This project speaks directly to the RFP's emphasis on predictable, enforceable,
-and selectively controllable governance structures. In this architecture:
+and selectively controllable governance structures. In the governance design
+studied here:
 
 \begin{itemize}[leftmargin=*]
 \item \textbf{Immutable:} the acceptance relation between the encrypted object
-      and the proof that authorizes it
+      and the proof that authorizes it; no coordinator, administrator, or tally
+      actor should be able to override that relation after acceptance
 \item \textbf{Adjustable:} governance parameters such as eligibility roots,
-      thresholds, election timing, and application-level workflow policy
+      thresholds, election timing, tally rules, and pause or restart policy,
+      which remain under institutional control before or between governance
+      rounds
 \item \textbf{Discretionary:} optional modules above the cryptographic core,
-      such as ballot-validity policies or institution-specific operational
-      procedures
+      such as ballot-validity policies, decryption ceremonies, operational
+      review, or institution-specific exception handling
 \end{itemize}
 
-The result is not only privacy, but a more legible allocation of control:
-reviewers, auditors, and governance designers can see which rules are hard-coded
-and which remain intentionally flexible.
+This is intentionally a hybrid design rather than a fully automated one.
+Programmability is used where discretionary override is most dangerous, while
+institutions retain human control where policy, process, or legal context may
+legitimately require it. The result is not only privacy, but a more legible
+allocation of control: auditors and governance designers can see which rules are
+hard-coded, which can be updated by authorized governance actors, and which are
+left to explicit operational discretion.
+
+\subsection{Real governance and compliance problems addressed}
+
+The immediate problems addressed are not theoretical only. Many organizations
+need procedures in which individual decisions remain confidential until a
+process closes, while outsiders can still verify that only eligible inputs were
+accepted and that the published aggregate corresponds to those accepted inputs.
+This arises in grant committees, professional associations, protocol councils,
+university bodies, and other collectives that need confidentiality without
+opaque administration. The project therefore treats auditable governance and
+verifiable compliance as core features rather than side benefits.
 
 \subsection{Benefit to the wider Ethereum ecosystem}
 
@@ -154,7 +172,7 @@ three ways:
       a documented and reusable design pattern;
 \item it gives Ethereum builders a public artifact and benchmark baseline for a
       governance problem that sits directly at the intersection of encryption,
-      succinct proofs, and EVM constraints shaped by BN254 precompiles
+      succinct proofs, and EVM constraints shaped by Ethereum's BN254 precompiles
       \cite{eip196,eip197};
 \item it translates a narrow cryptographic contribution into institutional
       design language that can be understood by non-cryptographers working on
@@ -168,12 +186,13 @@ three ways:
 
 \subsection{Current starting point}
 
-This proposal does not start from a blank slate. I already have a working
-research artifact centered on the acceptance layer of the problem: a Circom
-circuit, a Solidity contract using a real Groth16 verifier on EVM, a reproduced
-attack on the naive composition, passing tests, and measured benchmarks at
-realistic parameters. I also have a paper draft and a detailed internal map of
-claims, evidence, and open gaps.
+This proposal does not start from a blank slate. I already have a public
+research artifact centered on the acceptance side of the problem, including the
+acceptance gap between encrypted decisions and their on-chain authorization
+proof: a Circom circuit, a Solidity contract using a real Groth16 verifier on
+EVM, a reproduced attack on the naive composition, passing tests, and measured
+benchmarks at realistic parameters. I also have a paper draft and a detailed
+map of claims, evidence, and open gaps.
 
 This existing base reduces execution risk, but the work is not already
 complete. The current artifact is strongest on acceptance-side integrity and on
@@ -186,32 +205,40 @@ research output.
 
 \textbf{Work Package 1: Formal model and governance framing.}
 I will refine the current technical model into a governance-oriented formal
-description of the primitive, including:
+description of the mechanism, including:
 
 \begin{itemize}[leftmargin=*]
 \item the mixed-domain threat model;
 \item the mapping between cryptographic guarantees and institutional
       constraints;
-\item a clear immutable / adjustable / discretionary decomposition; and
-\item a comparison with nearby governance architectures already used in the
-      Ethereum ecosystem.
+\item a clear immutable / adjustable / discretionary decomposition with a
+      specified authority model; and
+\item a comparison with both traditional trustee- or coordinator-run workflows
+      and nearby Ethereum governance architectures.
 \end{itemize}
 
 \textbf{Work Package 2: Aggregate-integrity mechanism.}
 I will design, implement, and evaluate a mechanism that strengthens the current
-tally path beyond mismatch detectability. The exact construction will be chosen
-only if it meets four conditions:
+tally path beyond mismatch detectability. The primary path is an incremental
+aggregate-integrity construction in which the tally-side aggregate becomes a
+deterministic function of accepted ciphertexts by construction, reducing room
+for operator discretion after acceptance. If that primary path proves too costly
+or too weak for a precise claim, the fallback is a narrower tally-consistency
+upgrade that still materially improves verifiability over the present baseline.
+
+Any retained construction must satisfy four conditions:
 
 \begin{itemize}[leftmargin=*]
 \item it yields a precise formal claim;
 \item it has clear implementation semantics;
 \item it can be tested and benchmarked convincingly;
-\item it does not distort the project away from its governance-primitive core.
+\item it does not distort the project away from its governance-mechanism core.
 \end{itemize}
 
 \textbf{Work Package 3: Public artifact and ecosystem packaging.}
-I will release a public repository centered on the reusable artifact rather than
-the full private lab history. This will include:
+I will mature the existing public repository into a reusable artifact release
+whose packaging is centered on the artifact itself rather than on the broader
+research history behind it. This will include:
 
 \begin{itemize}[leftmargin=*]
 \item the core circuit and contract logic;
@@ -222,14 +249,16 @@ the full private lab history. This will include:
 \end{itemize}
 
 \textbf{Work Package 4: Academic output and dissemination.}
-I will write and submit the paper, archive the artifact, and produce a concise
-non-technical explanation for Ethereum governance practitioners.
+I will write and submit the paper, target IEEE S\&P 2027 Cycle 2 as the
+primary venue and ACM CCS 2027 as fallback, archive the artifact, and produce a
+concise non-technical explanation for Ethereum governance practitioners.
 
 \subsection{Expected outputs}
 
 \begin{itemize}[leftmargin=*,nosep]
-\item One open-access research paper submitted to a strong security venue
-\item One public open-source artifact repository under a permissive license
+\item One open-access research paper submitted to IEEE S\&P 2027 Cycle 2 or ACM CCS 2027
+\item One public preprint or equivalent open-access manuscript path
+\item One documented public open-source artifact release under a permissive license
 \item One archived artifact snapshot, for example Zenodo
 \item One concise practitioner-facing technical explainer for the Ethereum
       governance ecosystem
@@ -240,20 +269,21 @@ non-technical explanation for Ethereum governance practitioners.
 \section{Related Work}
 %% ===================================================================
 
-This project sits between two literatures that rarely meet cleanly in Ethereum
-governance practice.
+This project sits between institutional governance practice and cryptographic
+systems work that rarely meet cleanly in Ethereum deployments.
 
-On the governance side, Ethereum already has mature systems for collective
-decision-making. Snapshot and Snapshot X show the importance of usable and
-programmable governance. Aragon shows the importance of modular organizational
-design and permission structures. MACI shows that private on-chain governance is
-valuable and feasible, but its audited architecture still organizes tallying and
-proof generation around a coordinator role. Open Vote Network shows a different
-design point through self-tallying voting, avoiding the threshold-encrypted
-aggregation path altogether. Helios and the follow-up critique literature remain
-important reminders that protocol-level and composition-level gaps, not only
-broken primitives, can undermine voting systems \cite{maci2024audit,mccorry2017,
-adida2008,cortier2013,bernhard2015}.
+On the governance side, confidential decision workflows traditionally rely on a
+separation of duties among administrators, scrutineers, or tally trustees.
+Ethereum already has mature systems for collective decision-making, ranging from
+off-chain signaling to on-chain execution frameworks, but private governance
+architectures encode or retain those roles in different ways. MACI shows that
+private on-chain governance is valuable and feasible, but its audited
+architecture still organizes tallying and proof generation around a coordinator
+role. Open Vote Network shows a different design point through self-tallying
+voting, avoiding the threshold-encrypted aggregation path altogether. Helios and
+the follow-up critique literature remain important reminders that
+composition-level gaps, not only broken primitives, can undermine governance
+systems \cite{maci2024audit,mccorry2017,adida2008,cortier2013,bernhard2015}.
 
 On the cryptographic side, same-domain composition is much better understood.
 LegoSNARK provides a powerful modular composition framework inside a
@@ -276,10 +306,10 @@ composition pattern isolated here is not an eccentric one-off artifact of
 voting.
 
 The specific gap addressed here is narrower and more practical: Ethereum still
-lacks a clean, reusable primitive for the case where a raw encrypted governance
-object in an RSA-domain representation must be authorized by a succinct
-BN254-friendly proof under public bulletin-board semantics. That is the gap I
-aim to formalize and close. Existing systems either remain in same-domain
+lacks a clean, reusable mechanism for the case where a raw encrypted governance
+object must be authorized by a proof that Ethereum can verify cheaply on-chain,
+despite the encryption and proof systems living in incompatible cryptographic
+domains. That is the acceptance gap I aim to formalize and close. Existing systems either remain in same-domain
 cryptographic settings, avoid threshold-encrypted aggregation altogether, or
 accept different workflow assumptions. The project therefore does not claim that
 encryption, succinct proofs, or private governance are individually missing; it
@@ -296,7 +326,10 @@ work under the supervision of Alessandro Mei. My broader PhD work is in
 security, large-scale systems, and open protocols, and I am currently a
 Visiting Researcher at the University of Zurich. I have published at
 \textit{USENIX Security} and \textit{IEEE Access}, and I have spent the last
-years building public infrastructure as well as doing academic research.
+years building public infrastructure as well as doing academic research. This
+proposal sits inside my PhD research environment rather than outside it: the
+fellowship would fund a line of work already grounded in university research,
+existing supervision, and a working public artifact.
 
 I am well suited to this fellowship because this project requires exactly the
 combination I already have: security-research discipline, real artifact
@@ -315,7 +348,7 @@ as an external observer; I am already an active builder in the ecosystem.
 \item GitHub: \href{https://github.com/VincenzoImp}{github.com/VincenzoImp}
 \item USENIX Security paper: \href{https://www.usenix.org/conference/usenixsecurity25/presentation/imperati}{The Conspiracy Money Machine}
 \item IEEE Access paper: \href{https://ieeexplore.ieee.org/document/11224376}{Hard to See, Harder to Block}
-\item Project repository link: \href{https://github.com/VincenzoImp/cross-group-binding}{github.com/VincenzoImp/cross-group-binding}
+\item Project repository link: \href{https://github.com/VincenzoImp/paillier-groth16-binding}{github.com/VincenzoImp/paillier-groth16-binding}
 \item ORCID: \href{https://orcid.org/0009-0001-9437-1384}{0009-0001-9437-1384}
 \item Google Scholar: \href{https://scholar.google.com/citations?user=V4XgGVcAAAAJ}{scholar.google.com/citations?user=V4XgGVcAAAAJ}
 \item Supervisor academic profile: \href{http://wwwusers.di.uniroma1.it/~mei/}{Alessandro Mei}
@@ -328,8 +361,9 @@ as an external observer; I am already an active builder in the ecosystem.
 
 This is applied cryptography research with a concrete institutional example.
 The methodological goal is not to simulate a full voting platform; it is to
-study, strengthen, and package one governance primitive that becomes useful once
-private decisions and succinct authorization proofs must coexist on Ethereum.
+study, strengthen, and package one reusable governance mechanism that becomes
+useful once private decisions and succinct authorization proofs must coexist on
+Ethereum.
 
 \subsection{Phase 1: Formalization and architecture comparison}
 
@@ -339,13 +373,15 @@ into a cleaner governance-level statement. This includes:
 \begin{itemize}[leftmargin=*]
 \item specifying the threat model induced by a public bulletin board and cheap
       on-chain proof verification;
-\item mapping the primitive into immutable, adjustable, and discretionary
-      governance components;
+\item mapping the mechanism into immutable, adjustable, and discretionary
+      governance components together with the authority structure around each;
 \item comparing it against adjacent design points, especially
-      coordinator-centric, self-tallying, and same-domain approaches.
+      coordinator-centric, self-tallying, and same-domain approaches; and
+\item making explicit the comparison with traditional trustee- or
+      scrutineer-based governance workflows.
 \end{itemize}
 
-\subsection{Phase 2: Design and evaluation of the tally-integrity upgrade}
+\subsection{Phase 2: Design and evaluation of the aggregate-integrity upgrade}
 
 I will then build the main research extension of the fellowship: a stronger
 aggregate-integrity mechanism. I already know what the present baseline is:
@@ -355,25 +391,44 @@ aggregate-integrity mechanism. I already know what the present baseline is:
 \item transcript-derived aggregate mismatch is publicly detectable.
 \end{itemize}
 
-The fellowship will fund the step beyond that baseline. I will explore the most
-credible design path available from the current artifact, implement it in the
-same narrow stack, and only retain it in the final output if it satisfies the
-formal and empirical criteria listed above.
+The fellowship will fund the step beyond that baseline. I will first implement
+the primary path described in the Grant Scope: an incremental
+aggregate-integrity mechanism that makes the published aggregate follow from the
+accepted ciphertext set more directly. If that path does not support a clear and
+credible claim after implementation and measurement, I will fall back to a
+narrower tally-consistency upgrade rather than forcing a weak result into the
+paper.
 
 \subsection{Phase 3: Public artifact, documentation, and paper}
 
 Once the research line is stable, I will:
 
 \begin{itemize}[leftmargin=*]
-\item prepare a public artifact repository;
+\item stabilize the existing public repository;
 \item write a clear threat-model and limitations document;
 \item archive benchmark outputs and regeneration paths;
-\item rewrite the paper into venue-ready form; and
+\item prepare the artifact for archival release; and
 \item produce a short explainer for practitioners who care about governance
       design but are not specialists in cryptography.
 \end{itemize}
 
-\subsection{Scope discipline}
+\subsection{Phase 4: Submission and dissemination}
+
+In the final phase, I will turn the research into a formal academic output and a
+usable ecosystem deliverable. This includes rewriting the paper into
+venue-ready form, submitting it to the target venue, preserving a public
+manuscript path consistent with venue policy, and collecting external feedback
+from adjacent Ethereum governance builders.
+
+\subsection{Hybrid design and scope discipline}
+
+The project is intentionally hybrid rather than fully automated. Acceptance-side
+binding and the corresponding aggregate-integrity mechanism are the parts that
+should become maximally rigid and auditable. Decryption ceremonies,
+institution-specific ballot policies, and exceptional operational decisions may
+remain partially off-chain or discretionary, because the purpose of the project
+is to clarify the boundary between programmable enforcement and retained human
+control, not to eliminate institutions from the loop.
 
 The project will remain intentionally scoped. During the fellowship I will not
 reframe it as:
@@ -390,87 +445,189 @@ one strong, useful result rather than many half-finished ones.
 
 
 %% ===================================================================
-\section*{References}
+\section{Timeline}
 %% ===================================================================
+
+Planned fellowship period:
+
+\begin{itemize}[leftmargin=*,nosep]
+\item June 2026 to May 2027
+\item total requested fellowship support: \$24{,}000
+\item approximate total effort used for planning: 720 hours
+\item indicative planning rate used for milestone allocation: approximately \$33.33/hour
+\item milestone budgets below distribute the fixed fellowship amount across the planned work packages
+\end{itemize}
+
+\subsection*{Milestone 1: Institutional model and architecture comparison}
+
+\textbf{Timing:} Months 1--3\\
+\textbf{Budget:} \$6{,}000\\
+\textbf{Number of hours (roughly):} 180
+
+\textbf{Work}
+\begin{itemize}[leftmargin=*,nosep]
+\item consolidate the formal and governance model
+\item finalize the immutable / adjustable / discretionary decomposition
+\item compare the mechanism against trustee-run, coordinator-run, and adjacent
+      Ethereum governance designs
+\end{itemize}
+
+\textbf{Deliverables}
+\begin{itemize}[leftmargin=*,nosep]
+\item stable problem statement
+\item governance-comparison section including traditional workflow counterpart
+\item updated research plan for the aggregate-integrity extension
+\end{itemize}
+
+\subsection*{Milestone 2: Aggregate-integrity mechanism}
+
+\textbf{Timing:} Months 3--6\\
+\textbf{Budget:} \$8{,}000\\
+\textbf{Number of hours (roughly):} 240
+
+\textbf{Work}
+\begin{itemize}[leftmargin=*,nosep]
+\item implement the primary aggregate-integrity path
+\item implement the mechanism in the existing artifact stack
+\item add tests and measure cost
+\item formalize the corresponding claim, or narrow the result to the strongest
+      defensible fallback
+\end{itemize}
+
+\textbf{Deliverables}
+\begin{itemize}[leftmargin=*,nosep]
+\item implemented and benchmarked aggregate-integrity upgrade
+\item updated threat model and limitation notes
+\item locked final paper scope
+\end{itemize}
+
+\subsection*{Milestone 3: Public artifact stabilization and archival release}
+
+\textbf{Timing:} Months 6--8\\
+\textbf{Budget:} \$5{,}000\\
+\textbf{Number of hours (roughly):} 150
+
+\textbf{Work}
+\begin{itemize}[leftmargin=*,nosep]
+\item stabilize the existing public repository
+\item write documentation and reproduction instructions
+\item package benchmark data and artifact metadata
+\item archive a stable tagged snapshot
+\end{itemize}
+
+\textbf{Deliverables}
+\begin{itemize}[leftmargin=*,nosep]
+\item documented public artifact release
+\item archived release snapshot
+\item practitioner-facing explainer draft
+\end{itemize}
+
+\subsection*{Milestone 4: Paper submission and dissemination}
+
+\textbf{Timing:} Months 8--12\\
+\textbf{Budget:} \$5{,}000\\
+\textbf{Number of hours (roughly):} 150
+
+\textbf{Work}
+\begin{itemize}[leftmargin=*,nosep]
+\item complete the paper
+\item submit to IEEE S\&P 2027 Cycle 2 or ACM CCS 2027 fallback
+\item collect ecosystem feedback
+\item publish the public explainer and integration notes
+\end{itemize}
+
+\textbf{Deliverables}
+\begin{itemize}[leftmargin=*,nosep]
+\item submitted paper and submission record
+\item public preprint path or submission-ready manuscript
+\item final public explainer
+\item short feedback memo from ecosystem conversations
+\end{itemize}
+
 
 \begin{thebibliography}{99}\small
 
 \bibitem{eip196}
-Vitalik Buterin.
-\newblock {EIP-196}: Precompiled contracts for addition and scalar multiplication on the alt\_bn128 curve.
-\newblock Ethereum Improvement Proposals, 2017.
+Christian Reitwiessner.
+\newblock {EIP-196}: Precompiled contracts for addition and scalar multiplication on the elliptic curve alt\_bn128.
+\newblock Ethereum Improvement Proposals, no.~196, 2017.
 \newblock \url{https://eips.ethereum.org/EIPS/eip-196}
 
 \bibitem{eip197}
-Vitalik Buterin.
-\newblock {EIP-197}: Precompiled contracts for optimal ate pairing check on the alt\_bn128 curve.
-\newblock Ethereum Improvement Proposals, 2017.
+Vitalik Buterin and Christian Reitwiessner.
+\newblock {EIP-197}: Precompiled contracts for optimal ate pairing check on the elliptic curve alt\_bn128.
+\newblock Ethereum Improvement Proposals, no.~197, 2017.
 \newblock \url{https://eips.ethereum.org/EIPS/eip-197}
 
 \bibitem{maci2024audit}
-Privacy and Scaling Explorations.
-\newblock {MACI} audit report.
-\newblock 2024.
-\newblock \url{https://maci.pse.dev/}
+Kyle Charbonnet and Yufei Li.
+\newblock {MACI} Security Audit.
+\newblock PSE Security, July 2024.
+\newblock \url{https://maci.pse.dev/assets/files/20240731_PSE_Audit_audit_report-a0a0f08a5c621ccd0389d5e345c119be.pdf}
 
 \bibitem{mccorry2017}
 Patrick McCorry, Siamak F. Shahandashti, and Feng Hao.
 \newblock A smart contract for boardroom voting with maximum voter privacy.
-\newblock In {\em Financial Cryptography}, 2017.
+\newblock In {\em Financial Cryptography and Data Security}, pages 357--375, 2017.
+\newblock doi: \url{https://doi.org/10.1007/978-3-319-70972-7_20}
 
 \bibitem{adida2008}
 Ben Adida.
-\newblock Helios: Web-based open-audit voting.
-\newblock In {\em USENIX Security}, 2008.
+\newblock Helios: Web-based Open-Audit Voting.
+\newblock In {\em 17th USENIX Security Symposium}, pages 335--348, 2008.
+\newblock \url{https://www.usenix.org/conference/17th-usenix-security-symposium/helios-web-based-open-audit-voting}
 
 \bibitem{cortier2013}
-Veronique Cortier and Ben Smyth.
+V{\'e}ronique Cortier and Ben Smyth.
 \newblock Attacking and fixing Helios: An analysis of ballot secrecy.
-\newblock {\em Journal of Computer Security}, 2013.
+\newblock {\em Journal of Computer Security}, 21(1):89--148, 2013.
 
 \bibitem{bernhard2015}
-David Bernhard, Veronique Cortier, David Galindo, Olivier Pereira, and Bogdan Warinschi.
+David Bernhard, V{\'e}ronique Cortier, David Galindo, Olivier Pereira, and Bogdan Warinschi.
 \newblock {SoK}: A comprehensive analysis of game-based ballot privacy definitions.
-\newblock In {\em IEEE Symposium on Security and Privacy}, 2015.
+\newblock In {\em IEEE Symposium on Security and Privacy}, pages 499--516, 2015.
+\newblock doi: \url{https://doi.org/10.1109/SP.2015.37}
 
 \bibitem{park2021}
 Sunoo Park, Michael Specter, Neha Narula, and Ronald L. Rivest.
-\newblock Going from bad to worse: From internet voting to blockchain voting.
-\newblock {\em Journal of Cybersecurity}, 2021.
+\newblock Going from bad to worse: from Internet voting to blockchain voting.
+\newblock {\em Journal of Cybersecurity}, 7(1):tyaa025, 2021.
+\newblock doi: \url{https://doi.org/10.1093/cybsec/tyaa025}
 
 \bibitem{legosnark2019}
-Matteo Campanelli, Dario Fiore, and Anais Querol.
+Matteo Campanelli, Dario Fiore, and Ana{\"i}s Querol.
 \newblock LegoSNARK: Modular design and composition of succinct zero-knowledge proofs.
-\newblock In {\em ACM CCS}, 2019.
+\newblock In {\em ACM CCS}, pages 2075--2092, 2019.
+\newblock doi: \url{https://doi.org/10.1145/3319535.3339820}
 
 \bibitem{saver2019}
-Euiwoong Lee, Daejun Choi, Sungho Kim, and Seunghwan Oh.
+Jiwon Lee, Jaekyoung Choi, Jihye Kim, and Hyunok Oh.
 \newblock SAVER: SNARK-friendly, additively homomorphic, and verifiable encryption and decryption with rerandomization.
 \newblock Cryptology ePrint Archive, Paper 2019/1270.
 
 \bibitem{tangram2025}
-Tangram authors.
-\newblock Tangram: Encryption-friendly proof systems.
+Gweonho Jeong, Myeongkyun Moon, Geonho Yoon, Hyunok Oh, and Jihye Kim.
+\newblock Tangram: Encryption-friendly SNARK framework under Pedersen committed engines.
 \newblock Cryptology ePrint Archive, Paper 2025/540.
 
 \bibitem{gong2024}
 Borui Gong, Wang Fat Lau, Man Ho Au, Rupeng Yang, Haiyang Xue, and Lichun Li.
-\newblock Efficient zero-knowledge arguments for the Paillier cryptosystem.
+\newblock Efficient Zero-Knowledge Arguments for Paillier Cryptosystem.
 \newblock Cryptology ePrint Archive, Paper 2024/1303.
 
 \bibitem{xie2024}
 Zhikang Xie, Mengling Liu, Haiyang Xue, Man Ho Au, Robert H. Deng, and Siu-Ming Yiu.
-\newblock Direct range proofs for the Paillier cryptosystem and their applications.
+\newblock Direct Range Proofs for Paillier Cryptosystem and Their Applications.
 \newblock Cryptology ePrint Archive, Paper 2024/1355.
 
 \bibitem{tiresias2025}
 Offir Friedman, Avichai Marmor, Dolev Mutzari, Yehonatan C. Scaly, Yuval Spiizer, and Avishay Yanai.
-\newblock Tiresias: Large scale, UC-secure threshold Paillier.
-\newblock In {\em ASIACRYPT}, 2025.
+\newblock Tiresias: Large Scale, Maliciously Secure Threshold Paillier.
+\newblock Cryptology ePrint Archive, Paper 2023/998.
 
 \bibitem{veriflfix2022}
 Xiaojie Guo.
-\newblock Fixing issues and achieving maliciously secure verifiable aggregation in VeriFL.
+\newblock Fixing Issues and Achieving Maliciously Secure Verifiable Aggregation in ``VeriFL: Communication-Efficient and Fast Verifiable Aggregation for Federated Learning''.
 \newblock Cryptology ePrint Archive, Paper 2022/1073.
 
 \bibitem{lzksa2025}
@@ -479,103 +636,5 @@ Zhi Lu and Songfeng Lu.
 \newblock Cryptology ePrint Archive, Paper 2025/1141.
 
 \end{thebibliography}
-
-
-%% ===================================================================
-\section{Timeline}
-%% ===================================================================
-
-Assumed fellowship period:
-
-\begin{itemize}[leftmargin=*,nosep]
-\item June 2026 to May 2027
-\item approximate total effort: 480 hours
-\item equivalent internal hourly rate for planning: \$50/hour
-\item total requested fellowship support: \$24{,}000
-\end{itemize}
-
-\subsection*{Milestone 1: Governance model and problem consolidation}
-
-\textbf{Months:} 1--3\\
-\textbf{Hours:} 120\\
-\textbf{Budget:} \$6{,}000
-
-\textbf{Work}
-\begin{itemize}[leftmargin=*,nosep]
-\item consolidate the formal and governance model
-\item finalize the immutable / adjustable / discretionary decomposition
-\item prepare the architecture comparison against adjacent Ethereum governance
-      designs
-\end{itemize}
-
-\textbf{Deliverables}
-\begin{itemize}[leftmargin=*,nosep]
-\item stable problem statement
-\item governance-comparison section
-\item updated research plan for the tally-integrity extension
-\end{itemize}
-
-\subsection*{Milestone 2: Aggregate-integrity mechanism}
-
-\textbf{Months:} 3--6\\
-\textbf{Hours:} 160\\
-\textbf{Budget:} \$8{,}000
-
-\textbf{Work}
-\begin{itemize}[leftmargin=*,nosep]
-\item design the tally-integrity upgrade
-\item implement the mechanism in the existing artifact stack
-\item add tests and measure cost
-\item formalize the corresponding claim if the mechanism is strong enough
-\end{itemize}
-
-\textbf{Deliverables}
-\begin{itemize}[leftmargin=*,nosep]
-\item implemented and benchmarked tally-integrity upgrade
-\item updated threat model and limitation notes
-\item decision on final paper scope
-\end{itemize}
-
-\subsection*{Milestone 3: Public artifact release}
-
-\textbf{Months:} 6--8\\
-\textbf{Hours:} 100\\
-\textbf{Budget:} \$5{,}000
-
-\textbf{Work}
-\begin{itemize}[leftmargin=*,nosep]
-\item prepare the public repository
-\item write documentation and reproduction instructions
-\item package benchmark data and artifact metadata
-\item archive a stable snapshot
-\end{itemize}
-
-\textbf{Deliverables}
-\begin{itemize}[leftmargin=*,nosep]
-\item public artifact repository
-\item archived release
-\item practitioner-facing explainer draft
-\end{itemize}
-
-\subsection*{Milestone 4: Paper submission and dissemination}
-
-\textbf{Months:} 8--12\\
-\textbf{Hours:} 100\\
-\textbf{Budget:} \$5{,}000
-
-\textbf{Work}
-\begin{itemize}[leftmargin=*,nosep]
-\item complete the paper
-\item submit to a strong security venue
-\item collect ecosystem feedback
-\item publish the public explainer and integration notes
-\end{itemize}
-
-\textbf{Deliverables}
-\begin{itemize}[leftmargin=*,nosep]
-\item submitted paper
-\item final public explainer
-\item short feedback memo from ecosystem conversations
-\end{itemize}
 
 \end{document}

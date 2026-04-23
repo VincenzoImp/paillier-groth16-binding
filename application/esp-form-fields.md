@@ -6,19 +6,21 @@ Verifiable Private Governance on Ethereum
 
 ## Project Summary
 
-This project studies a missing governance primitive for Ethereum: securely
-binding an encrypted decision to the succinct proof that authorizes it when the
-two live in incompatible algebraic domains. The flagship case is private
-collective decision-making using threshold-Paillier encryption for private
-aggregation and Groth16 proofs for cheap EVM verification. The repository
-already contains a working artifact with a real Groth16 verifier, a reproduced
-attack on the naive composition, and benchmarked implementations; the proposed
-research strengthens tally-side integrity, packages the primitive for public
-reuse, and produces an open-access academic output.
+This project studies a governance primitive for Ethereum: allowing an
+institution to verify on-chain that an encrypted decision is exactly the
+decision authorized by its eligibility proof, even when the encryption and
+proof systems are cryptographically incompatible. The flagship case is private
+collective decision-making using threshold-Paillier encryption for efficient
+private aggregation and Groth16 proofs for cheap EVM verification. The
+repository already contains a working artifact with a real Groth16 verifier, a
+reproduced attack on the naive composition, and benchmarked implementations;
+the proposed research strengthens tally-side integrity, formalizes what is
+immutable versus adjustable or discretionary in this governance design, and
+produces an open-access academic output.
 
 ## Project Repo Link
 
-https://github.com/VincenzoImp/cross-group-binding
+https://github.com/VincenzoImp/paillier-groth16-binding
 
 ## Website
 
@@ -50,8 +52,8 @@ Open-source research artifact and academic paper
 
 ## Public Work Links
 
-- Project repository: https://github.com/VincenzoImp/cross-group-binding
-- Fellowship proposal PDF: `application/ethereum-foundation-phd-fellowship-2026-proposal.pdf`
+- Project repository: https://github.com/VincenzoImp/paillier-groth16-binding
+- Fellowship proposal PDF: https://github.com/VincenzoImp/paillier-groth16-binding/blob/main/application/ethereum-foundation-phd-fellowship-2026-proposal.pdf
 
 ## Notes For Submission
 

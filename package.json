@@ -1,5 +1,5 @@
 {
-  "name": "cross-group-binding",
+  "name": "paillier-groth16-binding",
   "version": "0.1.0",
   "private": true,
   "type": "module",

@@ -7,7 +7,7 @@ This package contains the research artifact's off-chain primitives:
 - Merkle utilities
 - proof generation for the cross-group binding circuit
 
-The most important design choice in this lab version is that the ciphertext
+The most important design choice in the current artifact is that the ciphertext
 limbs are part of the public signal vector. This lets the contract check that
 the ciphertext bytes posted on-chain match the exact limbs committed by the
 proof statement, avoiding the silent mismatch problem that appears when only a

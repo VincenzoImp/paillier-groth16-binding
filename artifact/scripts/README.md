@@ -1,10 +1,9 @@
 # Scripts
 
-**These scripts are illustrative convenience tools, not primary artifact
-evidence.** The primary evidence for the paper's claims comes from the
-contract test suites (37 tests including real Groth16 proofs, attack
-reproduction, aggregate consistency, and ablation) and the crypto test suite
-(94 tests).
+**These scripts are illustrative convenience tools, not the main source of
+evidence.** The main reproducible evidence comes from the contract test suites
+(37 tests including real Groth16 proofs, attack reproduction, aggregate
+consistency, and ablation) and the crypto test suite (94 tests).
 
 The scripts below demonstrate the same logic in a standalone format suitable
 for quick inspection, but they operate on synthetic data rather than on-chain

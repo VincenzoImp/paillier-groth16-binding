@@ -1,8 +1,9 @@
 # Artifact
 
-This artifact is deliberately narrower than the legacy project it draws from.
+This artifact is deliberately narrower than the broader research workflow that
+produced it.
 
-It exists to support one top-tier paper thesis:
+It exists to support one research question:
 
 - naive composition of threshold Paillier ciphertexts and SNARK-based
   eligibility proofs is insecure across incompatible algebraic groups
@@ -22,7 +23,7 @@ It exists to support one top-tier paper thesis:
 - `experiments/`
   Overhead and benchmarking utilities.
 - `demo/`
-  Thin demo guidance. The lab is intentionally not UI-first.
+  Thin demo guidance. The repository is intentionally not UI-first.
 
 ## Artifact Boundaries
 
@@ -46,14 +47,14 @@ The current artifact intentionally does not claim:
 
 ## Quick Demo Path
 
-The fastest reviewer-facing path is:
+The shortest executable path is:
 
 ```bash
 yarn quick:attack
 ```
 
 This runs the real-verifier `AttackDemo` tests and is the shortest executable
-route to the paper's core thesis. The script-level companion is:
+route to the artifact's core claim. The script-level companion is:
 
 ```bash
 yarn attack:demo
