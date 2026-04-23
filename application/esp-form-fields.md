@@ -6,17 +6,17 @@ Verifiable Private Governance on Ethereum
 
 ## Project Summary
 
-This project studies a governance primitive for Ethereum: allowing an
-institution to verify on-chain that an encrypted decision is exactly the
-decision authorized by its eligibility proof, even when the encryption and
-proof systems are cryptographically incompatible. The flagship case is private
-collective decision-making using threshold-Paillier encryption for efficient
-private aggregation and Groth16 proofs for cheap EVM verification. The
-repository already contains a working artifact with a real Groth16 verifier, a
-reproduced attack on the naive composition, and benchmarked implementations;
-the proposed research strengthens tally-side integrity, formalizes what is
-immutable versus adjustable or discretionary in this governance design, and
-produces an open-access academic output.
+This project studies a reusable mechanism for Ethereum that closes the
+acceptance gap between an encrypted decision and the proof that authorizes it,
+even when the encryption and proof systems are cryptographically incompatible.
+The flagship case is private collective decision-making using
+threshold-Paillier for efficient encrypted aggregation and Groth16 for cheap
+on-chain verification on Ethereum. The repository already contains a public
+artifact with a real Groth16 verifier, a reproduced attack on the naive
+composition, tests, and benchmarks; the proposed research strengthens
+aggregate-integrity, formalizes what is immutable versus adjustable or
+discretionary in this governance design, and produces an open-access academic
+output. Public work: https://github.com/VincenzoImp/paillier-groth16-binding
 
 ## Project Repo Link
 
@@ -44,11 +44,27 @@ https://research.uniroma1.it/researcher/0f9c3c1227f530e4af686c68b186e30bf4f66792
 
 ## Suggested Domain
 
-Research
+Cryptography
 
 ## Suggested Output Type
 
-Open-source research artifact and academic paper
+Research
+
+## Have You Applied Before To Any Grants At The Ethereum Foundation?
+
+No
+
+## Referral
+
+No
+
+## Additional Questions Or Comments
+
+Happy to provide artifact reproduction details or any supporting material upon request.
+
+## Allow Contact From Ethereum Foundation About Other Opportunities?
+
+Yes
 
 ## Public Work Links
 
